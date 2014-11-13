@@ -4,6 +4,14 @@ var LibraryView = Backbone.View.extend({
   tagName: "table",
 
   initialize: function() {
+    this.collection.comparator = function(a,b){
+      return b.get('voteCount')-a.get('voteCount');
+    };
+    // console.log(this.collection);
+    this.collection.on('voted', function(){
+      this.collection.sortEm();
+      this.render();
+    }, this)
     this.render();
   },
 
